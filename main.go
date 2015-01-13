@@ -24,7 +24,7 @@ func init() {
 
 	resp, err := http.Get("http://localhost:8000/api/list")
 	if err != nil {
-		// handle error
+		return
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
