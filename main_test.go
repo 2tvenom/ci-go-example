@@ -19,3 +19,10 @@ func TestSum(t *testing.T) {
 		}
 	}
 }
+
+func TestSumFail(t *testing.T) {
+	result := sum(1, 1)
+	if result != 3 {
+		t.Error("Incorrect sum data", 1, "+", 1, "must be", 3)
+	}
+}
