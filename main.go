@@ -21,7 +21,7 @@ var (
 
 func init() {
 	request = &Request{
-		Code: 1,
+		Code: 2,
 		Data: []string{"Hello", "World"},
 		Description: "No description",
 	}
