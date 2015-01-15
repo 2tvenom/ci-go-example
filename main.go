@@ -20,11 +20,15 @@ var (
 )
 
 func init() {
-
-
-	resp, err := http.Get("http://localhost:8000/api/list")
+	request = &Request{
+		Code: 1,
+		Data: []string{"Hello", "World"},
+		Description: "No description",
+	}
+	return
+	resp, err := http.Get("http://127.0.0.1:8000/api/list")
 	if err != nil {
-		// handle error
+		return
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
