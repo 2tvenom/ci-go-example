@@ -21,12 +21,12 @@ var (
 
 func init() {
 	request = &Request{
-		Code: 1,
+		Code: 100,
 		Data: []string{"Hello", "World"},
 		Description: "No description",
 	}
 	return
-	resp, err := http.Get("http://127.0.0.1:8000/api/list")
+	resp, err := http.Get("http://127.0.0.1:8080/api/list")
 	if err != nil {
 		return
 	}
@@ -53,7 +53,7 @@ func init() {
 
 func main() {
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8082", nil)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
