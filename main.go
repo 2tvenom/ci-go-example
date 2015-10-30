@@ -20,6 +20,7 @@ var (
 )
 
 func init() {
+	//eee
 	request = &Request{
 		Code: 100,
 		Data: []string{"Hello", "World"},
