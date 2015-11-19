@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"bytes"
+	"fmt"
 )
 
 type (
@@ -27,7 +28,9 @@ func init() {
 		Data: []string{"Hello", "World"},
 		Description: "No description",
 	}
-	return
+	
+	fmt.Println("Hello!")
+	
 	resp, err := http.Get("http://127.0.0.1:8080/api/list")
 	if err != nil {
 		return
