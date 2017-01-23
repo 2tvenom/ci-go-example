@@ -18,6 +18,7 @@ var (
 )
 
 func init() {
+	//test
 	request = &Request{
 		Code: 100,
 		Data: []string{"Hello", "World"},
