@@ -1,0 +1,23 @@
+stages:
+    - build
+    - deploy
+
+build:
+    image: golang:latest
+    stage: build
+    script:
+        - go get github.com/constabulary/gb/...
+        - gb build
+    artifacts:
+        untracked: true
+        paths:
+            - bin/
+
+deploy:
+    stage: deploy
+    image: ubuntu:16.04
+    script: 
+        - mkdir -p build/opt/apptica/bin
+        - mv bin/* build/opt/apptica/bin
+        - cd build && tar --exclude=apptica.tar.gz -C $(CURRENT_DIR)/build -czvf apptica.tar.gz * && mv apptica.tar.gz ..
+        - scp apptica.tar.gz ubuntu@192.168.99.30:/tmp
