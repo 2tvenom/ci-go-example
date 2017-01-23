@@ -2,10 +2,7 @@ package main
 
 import (
 	"net/http"
-	"io/ioutil"
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 type (
@@ -21,38 +18,10 @@ var (
 )
 
 func init() {
-	//eee
-	//eee
 	request = &Request{
 		Code: 100,
 		Data: []string{"Hello", "World"},
 		Description: "No description",
-	}
-	
-	fmt.Println("Hello!")
-	
-	resp, err := http.Get("http://127.0.0.1:8080/api/list")
-	if err != nil {
-		return
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		println(err.Error())
-		return
-	}
-
-	buff := bytes.NewBuffer(body)
-
-	decoder := json.NewDecoder(buff)
-
-	request = &Request{}
-
-	err = decoder.Decode(request)
-
-	if err != nil {
-		println(err.Error())
 	}
 }
 
