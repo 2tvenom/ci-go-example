@@ -1,23 +1,20 @@
 stages:
-    - build
     - deploy
 
-build:
+deploy:
+    before_script:
+      - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+      - eval $(ssh-agent -s)
+      - echo "$SSH_PRIVATE_KEY"
+      - ssh-add <(echo "$SSH_PRIVATE_KEY")
+      - mkdir -p ~/.ssh
+      - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    stage: deploy
     image: golang:latest
-    stage: build
-    script:
+    script: 
         - go get github.com/constabulary/gb/...
         - gb build
-    artifacts:
-        untracked: true
-        paths:
-            - bin/
-
-deploy:
-    stage: deploy
-    image: ubuntu:16.04
-    script: 
         - mkdir -p build/opt/apptica/bin
         - mv bin/* build/opt/apptica/bin
-        - cd build && tar --exclude=apptica.tar.gz -C $(CURRENT_DIR)/build -czvf apptica.tar.gz * && mv apptica.tar.gz ..
+        - cd build && tar --exclude=apptica.tar.gz -C `pwd` -czvf apptica.tar.gz * && mv apptica.tar.gz ..
         - scp apptica.tar.gz ubuntu@192.168.99.30:/tmp
